@@ -101,6 +101,7 @@ npx cspell-lockfile-dicts --lockfiles package-lock.json yarn.lock
 | `Pipfile.lock`       | Python/Pipenv               | ✅ Supported |
 | `go.sum`             | Go                          | ✅ Supported |
 | `go.mod`             | Go                          | ✅ Supported |
+| `pnpm-lock.yaml`     | JavaScript/pnpm             | 🔄 Pending   |
 | `*.gradle.lockfile`  | Java/Gradle                 | 🔄 Pending   |
 | `build.sbt.lock`     | Scala/SBT                   | 🔄 Pending   |
 | `pom.xml.lock`       | Java/Maven                  | 🔄 Pending   |
@@ -110,6 +111,9 @@ npx cspell-lockfile-dicts --lockfiles package-lock.json yarn.lock
 | `mix.lock`           | Elixir                      | 🔄 Pending   |
 | `Cartfile.resolved`  | Swift/Carthage              | 🔄 Pending   |
 | `Package.resolved`   | Swift/Swift Package Manager | 🔄 Pending   |
+
+Please feel free to open a PR to add support for other lockfiles.
+(AI is pretty good at implementing them!)
 
 ## Adding to CI/CD
 

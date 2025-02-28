@@ -22,6 +22,7 @@ export enum LockfileType {
   SWIFT_RESOLVED = 'swift-resolved',
   GO_SUM = 'go-sum',
   GO_MOD = 'go-mod',
+  PNPM_LOCK = 'pnpm-lock',
 }
 
 /**
@@ -102,6 +103,10 @@ export function detectLockfileType(filePath: string): LockfileType | undefined {
 
   if (fileName === 'go.mod') {
     return LockfileType.GO_MOD
+  }
+
+  if (fileName === 'pnpm-lock.yaml') {
+    return LockfileType.PNPM_LOCK
   }
 
   return undefined
