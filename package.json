@@ -25,7 +25,7 @@
     "format:check": "prettier --check \"**/*.{ts,js,json,md}\"",
     "cspell": "cspell --config .cspell.json .",
     "cspell:fix": "cspell --config .cspell.json --fix .",
-    "generate-dict": "npm run build && node dist/cli.js"
+    "generate-lockfile-dict": "npm run build && node dist/cli.js"
   },
   "keywords": [
     "cspell",
