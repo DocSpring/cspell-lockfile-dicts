@@ -1,0 +1,13 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    gemfilespeca (1.0.0)
+    gemfilespecb (2.0.0)
+      gemfilespeca (>= 1.0.0)
+
+GIT
+  remote: https://github.com/gemfileusername/gemfilerepo
+  revision: gemfilerevision
+  branch: gemfilebranch
+  specs:
+    gemfilespecgit (0.1.0) 

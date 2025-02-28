@@ -2,7 +2,6 @@
   "version": "0.2",
   "language": "en",
   "useGitignore": true,
-  "allowCompoundWords": true,
   "ignorePaths": ["node_modules", "dist", "coverage"],
   "dictionaries": ["typescript", "node", "npm", "custom-words"],
   "dictionaryDefinitions": [

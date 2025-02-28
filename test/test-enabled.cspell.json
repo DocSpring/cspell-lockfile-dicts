@@ -1,0 +1,9 @@
+{
+  "version": "0.2",
+  "language": "en",
+  "useGitignore": false,
+  "allowCompoundWords": true,
+  "ignorePaths": [],
+  "dictionaryDefinitions": [],
+  "import": ["../cspell-ext.json"]
+}

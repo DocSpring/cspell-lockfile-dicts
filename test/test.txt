@@ -12,6 +12,15 @@ bser
 iojs
 emittery
 
+Gemfile.lock:
+
+gemfilespeca
+gemfilespecb
+gemfilespecc
+gemfilebranch
+gemfilerevision
+gemfilespecgit
+
 These are package names and developer usernames that would be caught by cspell
 but should be ignored when using our lockfile-dictionaries plugin. 
 
