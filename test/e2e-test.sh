@@ -3,55 +3,60 @@ set -e
 
 echo "Running E2E integration test for cspell-lockfile-dictionaries plugin"
 
-# Debug: Show current directory and files
+# Get the absolute path to the project root
+PROJECT_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+echo "Project root: $PROJECT_ROOT"
+
+# First, build the project
+echo "Building project..."
+cd "$PROJECT_ROOT"
+npm run build
+
+# Change to the test directory
+cd "$PROJECT_ROOT/test"
 echo "Current directory: $(pwd)"
-echo "Contents of current directory:"
-ls -la
-echo "Contents of dist directory:"
-ls -la dist
-echo "Contents of test directory:"
-ls -la test
-echo "cspell-ext.json content:"
-cat cspell-ext.json
-echo "test-enabled.json content:"
-cat test/test-enabled.json
 
-# Run cspell with plugin disabled - should find all errors
-echo "Running cspell with plugin disabled..."
-DISABLED_OUTPUT=$(npx cspell --config test/test-disabled.json test/test-cspell-plugin.txt --words-only)
+# Clean up any existing .cspell directory
+echo "Cleaning up any existing .cspell directory..."
+if [ -d ".cspell" ]; then
+  rm -rf .cspell
+fi
+
+# Generate the dictionary from test lockfiles
+echo "Generating dictionary from test lockfiles..."
+node "$PROJECT_ROOT/dist/cli.js" --path .cspell/lockfile-words.txt --lockfiles package-lock.json,Gemfile.lock
+
+# Ensure the dictionary file exists
+if [ ! -f .cspell/lockfile-words.txt ]; then
+  echo "Error: Dictionary file was not generated"
+  exit 1
+fi
+
+# Run cspell with dictionary disabled - should find all errors
+echo "Running cspell with dictionary disabled..."
+DISABLED_OUTPUT=$(npx cspell --config test-disabled.cspell.json test.txt --words-only || true)
 DISABLED_ERRORS=$(echo "$DISABLED_OUTPUT" | wc -l)
-echo "Disabled plugin output:"
-echo "$DISABLED_OUTPUT"
 
-# Run cspell with plugin enabled - should only find real spelling errors
-echo "Running cspell with plugin enabled..."
-# Add --trace flag to see more details about plugin loading
-echo "IMPORTANT: Running cspell from directory: $(pwd)"
-echo "Running: npx cspell --config test/test-enabled.json test/test-cspell-plugin.txt --words-only --trace"
-ENABLED_OUTPUT=$(npx cspell --config test/test-enabled.json test/test-cspell-plugin.txt --words-only --trace)
+# Run cspell with dictionary enabled - should only find real spelling errors
+echo "Running cspell with dictionary enabled..."
+ENABLED_OUTPUT=$(npx cspell --config test-enabled.cspell.json test.txt --words-only || true)
 ENABLED_ERRORS=$(echo "$ENABLED_OUTPUT" | wc -l)
-echo "Enabled plugin output:"
-echo "$ENABLED_OUTPUT"
 
-# Debug: Run cspell with trace logging
-echo "Running cspell with trace logging..."
-npx cspell --config test/test-enabled.json test/test-cspell-plugin.txt --trace
-
-# Verify that the plugin reduced the number of errors
-echo "Errors with plugin disabled: $DISABLED_ERRORS"
-echo "Errors with plugin enabled: $ENABLED_ERRORS"
+# Verify that enabling the dictionary reduced the number of errors
+echo "Errors with dictionary disabled: $DISABLED_ERRORS"
+echo "Errors with dictionary enabled: $ENABLED_ERRORS"
 
 # The enabled errors should be less than disabled errors
 if [ "$ENABLED_ERRORS" -ge "$DISABLED_ERRORS" ]; then
-  echo "E2E test failed: Plugin did not reduce the number of spelling errors"
+  echo "E2E test failed: CSpell did not reduce the number of spelling errors"
   exit 1
 fi
 
 # The enabled errors should be exactly 3 (the real spelling errors)
 if [ "$ENABLED_ERRORS" -ne 3 ]; then
-  echo "E2E test failed: Plugin should have caught exactly 3 real spelling errors"
+  echo "E2E test failed: CSpell should have caught exactly 3 real spelling errors"
   exit 1
 fi
 
-echo "E2E test passed: Plugin correctly ignored package names while catching real spelling errors"
+echo "E2E test passed: CSpell correctly ignored package names while catching real spelling errors"
 exit 0

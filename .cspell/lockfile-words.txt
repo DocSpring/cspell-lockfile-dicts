@@ -1,5 +1,5 @@
 # CSpell Lockfile Words
-# Generated on 2025-02-28T03:55:33.463Z
+# Generated on 2025-02-28T04:49:17.209Z
 
 # All words (sorted alphabetically)
 @ampproject/remapping

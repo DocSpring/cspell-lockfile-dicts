@@ -3,7 +3,7 @@ GEM
   specs:
     gemfilespeca (1.0.0)
     gemfilespecb (2.0.0)
-      gemfilespeca (>= 1.0.0)
+      gemfilespecc (>= 1.0.0)
 
 GIT
   remote: https://github.com/gemfileusername/gemfilerepo

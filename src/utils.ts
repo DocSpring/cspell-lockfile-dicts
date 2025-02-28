@@ -154,7 +154,6 @@ export function saveDictionary(
 
   // Create the dictionary content with comments
   let content = '# CSpell Lockfile Words\n'
-  content += '# Generated on ' + new Date().toISOString() + '\n\n'
 
   // Add all words sorted alphabetically
   content += '# All words (sorted alphabetically)\n'

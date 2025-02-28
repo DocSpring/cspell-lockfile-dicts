@@ -50,7 +50,7 @@ This will:
 
 1. Scan your project for lockfiles (package-lock.json, yarn.lock, etc.)
 2. Extract package names from those lockfiles
-3. Generate a `.cspell-lockfile-dicts.txt` file in your project root
+3. Generate a `.cspell/lockfile-words.txt` file in your project root
 
 ### Step 2: Add the Dictionary to CSpell
 
@@ -73,7 +73,7 @@ The tool supports the following command-line options:
 ```
 Options:
   -d, --debug                         Enable debug logging
-  -p, --path <path>                   Path to save the dictionary file (default: ".cspell-lockfile-dicts.txt")
+  -p, --path <path>                   Path to save the dictionary file (default: ".cspell/lockfile-words.txt")
   -l, --lockfiles <files...>          Specific lockfiles to process (comma-separated)
   --no-auto-detect                    Disable auto-detection of lockfiles in the project
   -a, --auto-detect-patterns <patterns...>  Glob patterns for auto-detecting lockfiles (comma-separated)
@@ -138,7 +138,7 @@ jobs:
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
           commit_message: 'chore: update cspell lockfile dictionary'
-          file_pattern: .cspell-lockfile-dicts.txt
+          file_pattern: .cspell/lockfile-words.txt
 ```
 
 ## License

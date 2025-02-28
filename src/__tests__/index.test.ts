@@ -10,7 +10,7 @@ import { detectLockfileType, LockfileType } from '../lockfileTypes'
 const tmpDir = fs.mkdtempSync(
   path.join(os.tmpdir(), 'cspell-lockfile-dicts-test-')
 )
-const dictionaryPath = path.join(tmpDir, '.cspell-lockfile-dicts.txt')
+const dictionaryPath = path.join(tmpDir, 'lockfile-words.txt')
 
 // Use the real fs module for the tests
 jest.mock('../extractors', () => ({

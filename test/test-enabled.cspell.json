@@ -4,6 +4,12 @@
   "useGitignore": false,
   "allowCompoundWords": true,
   "ignorePaths": [],
-  "dictionaryDefinitions": [],
-  "import": ["../cspell-ext.json"]
+  "dictionaryDefinitions": [
+    {
+      "name": "lockfile-words",
+      "path": "./.cspell/lockfile-words.txt",
+      "description": "Dictionary of words extracted from lockfiles"
+    }
+  ],
+  "dictionaries": ["lockfile-words"]
 }
