@@ -30,8 +30,12 @@ describe('Integration Tests', () => {
       )
 
       expect(words).toContain('package-a')
-      expect(words).toContain('@scope/package-b')
-      expect(words).toContain('@cspell/dict-monkeyc')
+      expect(words).not.toContain('@scope/package-b')
+      expect(words).toContain('scope')
+      expect(words).toContain('package-b')
+      expect(words).not.toContain('@cspell/dict-monkeyc')
+      expect(words).toContain('cspell')
+      expect(words).toContain('dict-monkeyc')
     })
 
     it('should extract words from yarn.lock', async () => {
@@ -45,7 +49,9 @@ describe('Integration Tests', () => {
       )
 
       expect(words).toContain('package-a')
-      expect(words).toContain('@cspell/dict-monkeyc')
+      expect(words).not.toContain('@cspell/dict-monkeyc')
+      expect(words).toContain('cspell')
+      expect(words).toContain('dict-monkeyc')
     })
 
     it('should extract words from Gemfile.lock', async () => {

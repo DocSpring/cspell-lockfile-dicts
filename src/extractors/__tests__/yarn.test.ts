@@ -18,7 +18,8 @@ describe('Yarn Extractors', () => {
       // Test for @cspell/dict-monkeyc
       expect(words).toContain('cspell')
       expect(words).toContain('dict-monkeyc')
-      expect(words).toContain('@cspell/dict-monkeyc')
+      // Full scoped package names should not be included
+      expect(words).not.toContain('@cspell/dict-monkeyc')
 
       verifyNoDuplicates(words)
     })

@@ -14,12 +14,17 @@ describe('NPM Extractors', () => {
       expect(words).toContain('package-a')
       expect(words).toContain('scope')
       expect(words).toContain('package-b')
-      expect(words).toContain('@scope/package-b')
+      // Full scoped package names should not be included
+      expect(words).not.toContain('@scope/package-b')
 
       // Test for @cspell/dict-monkeyc
       expect(words).toContain('cspell')
       expect(words).toContain('dict-monkeyc')
-      expect(words).toContain('@cspell/dict-monkeyc')
+      // Full scoped package names should not be included
+      expect(words).not.toContain('@cspell/dict-monkeyc')
+      // Package names should not be split
+      expect(words).not.toContain('dict')
+      expect(words).not.toContain('monkeyc')
 
       verifyNoDuplicates(words)
     })
@@ -29,7 +34,8 @@ describe('NPM Extractors', () => {
       const words = extractFromPackageLock(mockContent, { debug: false })
 
       expect(words).toContain('package-a')
-      expect(words).toContain('@scope/package-b')
+      // Full scoped package names should not be included
+      expect(words).not.toContain('@scope/package-b')
       expect(words).toContain('scope')
       expect(words).toContain('package-b')
       expect(words).toContain('package-c')
@@ -37,7 +43,11 @@ describe('NPM Extractors', () => {
       // Test for @cspell/dict-monkeyc
       expect(words).toContain('cspell')
       expect(words).toContain('dict-monkeyc')
-      expect(words).toContain('@cspell/dict-monkeyc')
+      // Full scoped package names should not be included
+      expect(words).not.toContain('@cspell/dict-monkeyc')
+      // Package names should not be split
+      expect(words).not.toContain('dict')
+      expect(words).not.toContain('monkeyc')
 
       // Test for engine names
       expect(words).toContain('co')
@@ -45,6 +55,37 @@ describe('NPM Extractors', () => {
       expect(words).toContain('engines')
       expect(words).toContain('license')
       expect(words).toContain('MIT')
+
+      verifyNoDuplicates(words)
+    })
+
+    it('should properly handle scoped packages like @babel/compat-data', () => {
+      const mockContent = JSON.stringify({
+        name: 'test-project',
+        lockfileVersion: 3,
+        packages: {
+          'node_modules/@babel/compat-data': {
+            version: '7.23.2',
+            resolved:
+              'https://registry.npmjs.org/@babel/compat-data/-/compat-data-7.23.2.tgz',
+          },
+        },
+      })
+
+      const words = extractFromPackageLock(mockContent, { debug: false })
+
+      // Should NOT include the full package name
+      expect(words).not.toContain('@babel/compat-data')
+
+      // Should include the scope without @
+      expect(words).toContain('babel')
+
+      // Should include the package name
+      expect(words).toContain('compat-data')
+
+      // Should NOT include the parts of the package name
+      expect(words).not.toContain('compat')
+      expect(words).not.toContain('data')
 
       verifyNoDuplicates(words)
     })

@@ -12,15 +12,18 @@ export function extractFromYarnLock(content: string): string[] {
   while ((match = packageNameRegex.exec(content)) !== null) {
     const packageName = (match[1] || match[2]).trim()
     if (packageName && !packageName.includes(' ')) {
-      words.add(packageName)
+      // Don't add full scoped package names
+      if (!packageName.startsWith('@')) {
+        words.add(packageName)
+      }
 
       // Add parts of scoped packages
       if (packageName.includes('/')) {
         const [scope, name] = packageName.split('/')
         if (scope.startsWith('@')) {
           words.add(scope.substring(1))
+          words.add(name)
         }
-        words.add(name)
       }
     }
   }

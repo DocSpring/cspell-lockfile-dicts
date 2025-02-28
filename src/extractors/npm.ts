@@ -122,14 +122,49 @@ export function extractFromPackageLock(
 
           if (scope.startsWith('@')) {
             // Scoped package
-            const fullName = `${scope}/${packageName}`
-            words.add(fullName)
-            words.add(scope.substring(1))
+            // Don't add the full scoped package name
+            // const fullName = `${scope}/${packageName}`
+            // words.add(fullName)
+
+            // Add scope without @ symbol
+            const scopeWithoutAt = scope.substring(1)
+            words.add(scopeWithoutAt)
+
+            // Add package name
             words.add(packageName)
-            debugLog(config, `✅ Added scoped package: ${fullName}`)
+
+            // Don't split package names on hyphens
+            // const packageParts = packageName.split(/[-_]/)
+            // packageParts.forEach(part => {
+            //   if (part.length > 1) {
+            //     words.add(part)
+            //   }
+            // })
+
+            // Don't split scope names on hyphens
+            // const scopeParts = scopeWithoutAt.split(/[-_]/)
+            // scopeParts.forEach(part => {
+            //   if (part.length > 1) {
+            //     words.add(part)
+            //   }
+            // })
+
+            debugLog(
+              config,
+              `✅ Added scoped package parts: ${scopeWithoutAt}, ${packageName}`
+            )
           } else {
             // Regular package
             words.add(packageName)
+
+            // Don't split package names on hyphens
+            // const packageParts = packageName.split(/[-_]/)
+            // packageParts.forEach(part => {
+            //   if (part.length > 1) {
+            //     words.add(part)
+            //   }
+            // })
+
             debugLog(config, `✅ Added package: ${packageName}`)
           }
         }
@@ -168,18 +203,47 @@ export function extractFromPackageLock(
         )
 
         for (const packageName of Object.keys(deps)) {
-          words.add(packageName)
-          debugLog(
-            config,
-            `${' '.repeat(depth * 2)}✅ Added word: ${packageName}`
-          )
+          // Don't add full scoped package names
+          if (!packageName.startsWith('@')) {
+            words.add(packageName)
+            debugLog(
+              config,
+              `${' '.repeat(depth * 2)}✅ Added word: ${packageName}`
+            )
+          }
 
           // Add parts of scoped packages
           if (packageName.includes('/')) {
             const [scope, name] = packageName.split('/')
             if (scope.startsWith('@')) {
-              words.add(scope.substring(1))
+              // Add scope without @ symbol
+              const scopeWithoutAt = scope.substring(1)
+              words.add(scopeWithoutAt)
               words.add(name)
+
+              // Don't split package names on hyphens
+              // const packageParts = name.split(/[-_]/)
+              // packageParts.forEach(part => {
+              //   if (part.length > 1) {
+              //     words.add(part)
+              //   }
+              // })
+
+              // Don't split scope names on hyphens
+              // const scopeParts = scopeWithoutAt.split(/[-_]/)
+              // scopeParts.forEach(part => {
+              //   if (part.length > 1) {
+              //     words.add(part)
+              //   }
+              // })
+            } else {
+              // Don't split regular package names on hyphens
+              // const packageParts = packageName.split(/[-_]/)
+              // packageParts.forEach(part => {
+              //   if (part.length > 1) {
+              //     words.add(part)
+              //   }
+              // })
             }
           }
 
