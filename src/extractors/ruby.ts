@@ -6,10 +6,16 @@
 export function extractFromGemfileLock(content: string): string[] {
   const words = new Set<string>()
 
-  // Extract gem names
-  const gemNameRegex = /^\s{4}([a-zA-Z0-9_-]+)(\s|$)/gm
+  // Extract top-level gem names (4 spaces)
+  const topLevelGemRegex = /^\s{4}([a-zA-Z0-9_-]+)(\s|$)/gm
   let match
-  while ((match = gemNameRegex.exec(content)) !== null) {
+  while ((match = topLevelGemRegex.exec(content)) !== null) {
+    words.add(match[1])
+  }
+
+  // Extract dependency gem names (6 spaces)
+  const dependencyGemRegex = /^\s{6}([a-zA-Z0-9_-]+)(\s|$)/gm
+  while ((match = dependencyGemRegex.exec(content)) !== null) {
     words.add(match[1])
   }
 
@@ -23,6 +29,12 @@ export function extractFromGemfileLock(content: string): string[] {
   // Extract branch names
   const branchRegex = /^\s{2}branch: ([a-zA-Z0-9_-]+)/gm
   while ((match = branchRegex.exec(content)) !== null) {
+    words.add(match[1])
+  }
+
+  // Extract revision values
+  const revisionRegex = /^\s{2}revision: ([a-zA-Z0-9_-]+)/gm
+  while ((match = revisionRegex.exec(content)) !== null) {
     words.add(match[1])
   }
 
