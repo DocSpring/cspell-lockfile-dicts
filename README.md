@@ -29,7 +29,7 @@ npx cspell-lockfile-dicts
 
 This will:
 
-1. Scan your project for lockfiles (package-lock.json, yarn.lock, etc.)
+1. Scan your project for lockfiles (`package-lock.json`, `yarn.lock`, `Gemfile.lock`, `composer.lock`, `Cargo.lock`, etc.)
 2. Extract package names from those lockfiles
 3. Generate a `.cspell/lockfile-words.txt` file in your project root
 
@@ -60,11 +60,11 @@ The tool supports the following command-line options:
 
 ```
 Options:
-  -d, --debug                         Enable debug logging
   -p, --path <path>                   Path to save the dictionary file (default: ".cspell/lockfile-words.txt")
   -l, --lockfiles <files...>          Specific lockfiles to process (comma-separated)
   --no-auto-detect                    Disable auto-detection of lockfiles in the project
   -a, --auto-detect-patterns <patterns...>  Glob patterns for auto-detecting lockfiles (comma-separated)
+  -d, --debug                         Enable debug logging
   -h, --help                          Display help for command
 ```
 
@@ -90,11 +90,26 @@ npx cspell-lockfile-dicts --lockfiles package-lock.json yarn.lock
 
 ## Supported Lockfiles
 
-- `package-lock.json` (npm)
-- `yarn.lock` (Yarn)
-- `Gemfile.lock` (Ruby/Bundler)
-- `composer.lock` (PHP/Composer)
-- `Cargo.lock` (Rust/Cargo)
+| Lockfile             | Language/Package Manager    | Status       |
+| -------------------- | --------------------------- | ------------ |
+| `package-lock.json`  | JavaScript/npm              | ✅ Supported |
+| `yarn.lock`          | JavaScript/Yarn             | ✅ Supported |
+| `Gemfile.lock`       | Ruby/Bundler                | ✅ Supported |
+| `composer.lock`      | PHP/Composer                | ✅ Supported |
+| `Cargo.lock`         | Rust/Cargo                  | ✅ Supported |
+| `poetry.lock`        | Python/Poetry               | ✅ Supported |
+| `Pipfile.lock`       | Python/Pipenv               | ✅ Supported |
+| `go.sum`             | Go                          | ✅ Supported |
+| `go.mod`             | Go                          | ✅ Supported |
+| `*.gradle.lockfile`  | Java/Gradle                 | 🔄 Pending   |
+| `build.sbt.lock`     | Scala/SBT                   | 🔄 Pending   |
+| `pom.xml.lock`       | Java/Maven                  | 🔄 Pending   |
+| `packages.lock.json` | .NET/NuGet                  | 🔄 Pending   |
+| `Podfile.lock`       | Swift/CocoaPods             | 🔄 Pending   |
+| `cocoapods.lock`     | Swift/CocoaPods             | 🔄 Pending   |
+| `mix.lock`           | Elixir                      | 🔄 Pending   |
+| `Cartfile.resolved`  | Swift/Carthage              | 🔄 Pending   |
+| `Package.resolved`   | Swift/Swift Package Manager | 🔄 Pending   |
 
 ## Adding to CI/CD
 
