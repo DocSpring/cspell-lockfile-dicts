@@ -1,0 +1,13 @@
+{
+  "id": "lockfile-dictionaries",
+  "name": "Lockfile Dictionaries",
+  "description": "Dictionaries generated from package names in lockfiles",
+  "dictionaryDefinitions": [
+    {
+      "name": "lockfile-dictionaries",
+      "path": "../dist/dictionaries/package-lock.txt",
+      "description": "Dictionary generated from package-lock.json"
+    }
+  ],
+  "dictionaries": ["lockfile-dictionaries"]
+}

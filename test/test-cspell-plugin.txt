@@ -1,0 +1,22 @@
+Examples of unknown words found in our own package-lock.json:
+
+jridgewell
+bcoe
+dict-monkeyc
+is-arrayish
+levn
+humanfs
+fastq
+graphemer
+bser
+iojs
+emittery
+
+These are package names and developer usernames that would be caught by cspell
+but should be ignored when using our lockfile-dictionaries plugin. 
+
+Control examples with real spelling errors:
+
+- mispeling (should be "misspelling")
+- recieved (should be "received") 
+- ohokthen (should be "oh ok then")

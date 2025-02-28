@@ -1,0 +1,11 @@
+"package-a@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/package-a/-/package-a-1.0.0.tgz"
+
+"@scope/package-b@^2.0.0":
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/@scope/package-b/-/package-b-2.0.0.tgz"
+
+"@cspell/dict-monkeyc@^1.0.10":
+  version "1.0.10"
+  resolved "https://registry.yarnpkg.com/@cspell/dict-monkeyc/-/dict-monkeyc-1.0.10.tgz" 

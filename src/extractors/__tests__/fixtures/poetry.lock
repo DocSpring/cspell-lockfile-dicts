@@ -1,0 +1,13 @@
+[[package]]
+name = "package-a"
+version = "1.0.0"
+description = "A test package"
+category = "main"
+optional = false
+
+[[package]]
+name = "package-b"
+version = "2.0.0"
+description = "Another test package"
+category = "dev"
+optional = false 

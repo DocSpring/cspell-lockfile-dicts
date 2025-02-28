@@ -1,0 +1,67 @@
+{
+  "name": "cspell-lockfile-dicts",
+  "version": "1.0.0",
+  "description": "CSpell plugin to extract words from lockfiles and create dictionaries",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "type": "module",
+  "bin": {
+    "cspell-lockfile-dicts": "dist/cli.js"
+  },
+  "files": [
+    "dist/**",
+    "cspell-ext.json",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "tsc -p .",
+    "watch": "tsc -p . --watch",
+    "clean": "rimraf dist",
+    "prepare": "npm run clean && npm run build",
+    "test": "jest",
+    "lint": "eslint . --ext .ts",
+    "lint:fix": "eslint . --ext .ts --fix",
+    "format": "prettier --write \"**/*.{ts,js,json,md}\"",
+    "format:check": "prettier --check \"**/*.{ts,js,json,md}\"",
+    "spell": "cspell --config .cspell.json \"**/*.{ts,js,json,md}\"",
+    "spell:fix": "cspell --config .cspell.json --fix \"**/*.{ts,js,json,md}\"",
+    "generate-dict": "npm run build && node dist/cli.js"
+  },
+  "keywords": [
+    "cspell",
+    "dictionary",
+    "lockfile",
+    "gemfile",
+    "yarn",
+    "npm",
+    "package-lock",
+    "cspell-plugin"
+  ],
+  "author": "",
+  "license": "MIT",
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.21.0",
+    "@types/jest": "^29.5.0",
+    "@types/node": "^18.19.76",
+    "@typescript-eslint/eslint-plugin": "^8.25.0",
+    "@typescript-eslint/parser": "^8.25.0",
+    "cspell": "^8.17.5",
+    "eslint": "^9.21.0",
+    "eslint-config-prettier": "^10.0.2",
+    "jest": "^29.5.0",
+    "prettier": "^3.5.2",
+    "rimraf": "^4.4.1",
+    "ts-jest": "^29.1.0",
+    "typescript": "^5.0.4",
+    "typescript-eslint": "^8.25.0"
+  },
+  "dependencies": {
+    "@cspell/cspell-types": "^8.0.0",
+    "commander": "^10.0.1",
+    "glob": "^10.3.10"
+  }
+}

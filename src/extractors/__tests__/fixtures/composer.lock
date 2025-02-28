@@ -1,0 +1,18 @@
+{
+  "packages": [
+    {
+      "name": "vendor/package-a",
+      "version": "1.0.0"
+    },
+    {
+      "name": "vendor/package-b",
+      "version": "2.0.0"
+    }
+  ],
+  "packages-dev": [
+    {
+      "name": "vendor/dev-package",
+      "version": "0.1.0"
+    }
+  ]
+}

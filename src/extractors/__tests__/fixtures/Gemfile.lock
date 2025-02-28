@@ -1,0 +1,13 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    gem-a (1.0.0)
+    gem-b (2.0.0)
+      gem-a (>= 1.0.0)
+
+GIT
+  remote: https://github.com/user/repo
+  revision: abcdef
+  branch: main
+  specs:
+    gem-c (0.1.0) 

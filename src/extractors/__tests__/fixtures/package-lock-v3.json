@@ -1,0 +1,35 @@
+{
+  "name": "test-project",
+  "lockfileVersion": 3,
+  "packages": {
+    "": {
+      "name": "test-project",
+      "version": "1.0.0"
+    },
+    "node_modules/package-a": {
+      "version": "1.0.0",
+      "resolved": "https://registry.npmjs.org/package-a/-/package-a-1.0.0.tgz"
+    },
+    "node_modules/@scope/package-b": {
+      "version": "2.0.0",
+      "resolved": "https://registry.npmjs.org/@scope/package-b/-/package-b-2.0.0.tgz"
+    },
+    "node_modules/nested/path/package-c": {
+      "version": "3.0.0",
+      "resolved": "https://registry.npmjs.org/package-c/-/package-c-3.0.0.tgz"
+    },
+    "node_modules/@cspell/dict-monkeyc": {
+      "version": "1.0.10",
+      "resolved": "https://registry.npmjs.org/@cspell/dict-monkeyc/-/dict-monkeyc-1.0.10.tgz"
+    },
+    "node_modules/co": {
+      "version": "4.6.0",
+      "dev": true,
+      "license": "MIT",
+      "engines": {
+        "iojs": ">= 1.0.0",
+        "node": ">= 0.12.0"
+      }
+    }
+  }
+}

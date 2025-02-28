@@ -1,0 +1,17 @@
+cspell
+lockfile
+lockfiles
+lockfileDictionaries
+dictionaries
+gemfile
+pipfile
+pipenv
+toml
+jspm
+lcov
+eslintrc
+prettierrc
+eslintcache
+tsbuildinfo
+codecov
+autodetect

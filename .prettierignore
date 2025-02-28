@@ -1,0 +1,21 @@
+# Build outputs
+dist/
+build/
+lib/
+out/
+
+# Coverage directory
+coverage/
+
+# Node modules
+node_modules/
+
+# Package files
+package-lock.json
+yarn.lock
+
+# Generated files
+*.generated.*
+
+# Markdown files (optional, if you want to keep your own formatting)
+# *.md 

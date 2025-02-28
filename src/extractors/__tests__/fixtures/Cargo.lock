@@ -1,0 +1,11 @@
+[[package]]
+name = "package-a"
+version = "1.0.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+
+[[package]]
+name = "package-b"
+version = "2.0.0"
+dependencies = [
+ "package-a 1.0.0",
+] 

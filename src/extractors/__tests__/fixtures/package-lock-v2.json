@@ -1,0 +1,15 @@
+{
+  "name": "test-project",
+  "lockfileVersion": 2,
+  "dependencies": {
+    "package-a": {
+      "version": "1.0.0"
+    },
+    "@scope/package-b": {
+      "version": "2.0.0"
+    },
+    "@cspell/dict-monkeyc": {
+      "version": "^1.0.10"
+    }
+  }
+}

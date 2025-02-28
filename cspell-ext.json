@@ -1,0 +1,13 @@
+{
+  "id": "lockfile-words",
+  "name": "Lockfile Words",
+  "description": "Dictionary of words extracted from lockfiles",
+  "dictionaryDefinitions": [
+    {
+      "name": "lockfile-words",
+      "path": "./.cspell/lockfile-words.txt",
+      "description": "Dictionary of words extracted from lockfiles"
+    }
+  ],
+  "dictionaries": ["lockfile-words"]
+}
