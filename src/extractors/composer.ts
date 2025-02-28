@@ -1,5 +1,5 @@
-import { LockfileDictionariesConfig } from '../config.ts'
-import { debugLog } from '../utils.ts'
+import { LockfileDictionariesConfig } from '../config.js'
+import { debugLog } from '../utils.js'
 
 /**
  * Extract words from a composer.lock file

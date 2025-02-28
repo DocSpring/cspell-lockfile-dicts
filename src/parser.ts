@@ -1,8 +1,8 @@
 import type { Parser, ParseResult, ParsedText } from '@cspell/cspell-types'
-import { LockfileDictionariesConfig, defaultConfig } from './config.ts'
-import { extractWordsFromFile } from './extractors.ts'
-import { detectLockfileType } from './lockfileTypes.ts'
-import { saveDictionary, debugLog } from './utils.ts'
+import { LockfileDictionariesConfig, defaultConfig } from './config.js'
+import { extractWordsFromFile } from './extractors.js'
+import { detectLockfileType } from './lockfileTypes.js'
+import { debugLog } from './utils.js'
 
 /**
  * Lockfile Parser implementation
@@ -55,13 +55,9 @@ export class LockfileParser implements Parser {
             // Add to all words
             words.forEach((word) => this.allWords.add(word))
 
-            // Save the dictionary
-            const allWordsArray = Array.from(this.allWords).sort()
-            saveDictionary(allWordsArray, this.wordsBySource, this.config)
-
             debugLog(
               this.config,
-              `📝 Extracted ${words.length} words from ${filename} and saved to dictionary`
+              `📝 Extracted ${words.length} words from ${filename}`
             )
           })
           .catch((error) => {

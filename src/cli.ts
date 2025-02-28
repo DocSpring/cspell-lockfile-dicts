@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 
 import { Command } from 'commander'
-import { generateDictionary } from './utils.ts'
-import { LockfileDictionariesConfig } from './config.ts'
+import { generateDictionary } from './utils.js'
+import { LockfileDictionariesConfig } from './config.js'
 
 const program = new Command()
 
@@ -20,15 +20,11 @@ program
   )
   .option(
     '-l, --lockfiles <files...>',
-    'Specific lockfiles to process (comma-separated)'
-  )
-  .option(
-    '--no-auto-detect',
-    'Disable auto-detection of lockfiles in the project'
+    'Specific lockfiles to process (space-separated). When specified, auto-detection is disabled.'
   )
   .option(
     '-a, --auto-detect-patterns <patterns...>',
-    'Glob patterns for auto-detecting lockfiles (comma-separated)',
+    'Glob patterns for auto-detecting lockfiles (space-separated). Only used when --lockfiles is not specified.',
     [
       '**/package-lock.json',
       '**/yarn.lock',
@@ -41,10 +37,13 @@ program
 program.action(async (options) => {
   console.log('🔍 Generating dictionary from lockfiles...')
 
+  // Auto-detection is enabled by default, but disabled when lockfiles are explicitly specified
+  const autoDetect = options.lockfiles ? false : true
+
   const config: LockfileDictionariesConfig = {
     debug: options.debug || false,
     dictionaryPath: options.path,
-    autoDetect: options.autoDetect !== false,
+    autoDetect: autoDetect,
     lockfiles: options.lockfiles,
     autoDetectPatterns: options.autoDetectPatterns,
   }

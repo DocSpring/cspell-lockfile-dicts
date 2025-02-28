@@ -1,18 +1,18 @@
 import * as fs from 'fs'
-import { LockfileType } from '../lockfileTypes.ts'
-import { LockfileDictionariesConfig } from '../config.ts'
-import { debugLog } from '../utils.ts'
+import { LockfileType } from '../lockfileTypes.js'
+import { LockfileDictionariesConfig } from '../config.js'
+import { debugLog } from '../utils.js'
 
 // Import all extractors
-import { extractFromPackageLock } from './npm.ts'
-import { extractFromYarnLock } from './yarn.ts'
-import { extractFromGemfileLock } from './ruby.ts'
-import { extractFromComposerLock } from './composer.ts'
-import { extractFromCargoLock } from './cargo.ts'
-import { extractFromPythonLock } from './python.ts'
-import { extractFromGoSum, extractFromGoMod } from './go.ts'
-import { extractFromPoetryLock } from './poetry.ts'
-import { extractFromPipfileLock } from './pipenv.ts'
+import { extractFromPackageLock } from './npm.js'
+import { extractFromYarnLock } from './yarn.js'
+import { extractFromGemfileLock } from './ruby.js'
+import { extractFromComposerLock } from './composer.js'
+import { extractFromCargoLock } from './cargo.js'
+import { extractFromPythonLock } from './python.js'
+import { extractFromGoSum, extractFromGoMod } from './go.js'
+import { extractFromPoetryLock } from './poetry.js'
+import { extractFromPipfileLock } from './pipenv.js'
 
 /**
  * Extract words from a file based on its type

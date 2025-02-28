@@ -2,7 +2,6 @@ import * as fs from 'fs'
 import * as path from 'path'
 import * as os from 'os'
 import { LockfileParser } from '../parser'
-import { plugin, createPlugin } from '../plugin-experimental'
 import { extractWordsFromFile } from '../extractors'
 import { detectLockfileType, LockfileType } from '../lockfileTypes'
 
@@ -26,7 +25,7 @@ jest.mock('../lockfileTypes', () => ({
   },
 }))
 
-describe('Plugin API', () => {
+describe('Parser API', () => {
   beforeEach(() => {
     jest.clearAllMocks()
     jest.useFakeTimers()
@@ -53,28 +52,6 @@ describe('Plugin API', () => {
     } catch (error) {
       console.error('Error cleaning up temporary directory:', error)
     }
-  })
-
-  describe('plugin', () => {
-    it('should export a plugin instance', () => {
-      expect(plugin).toBeDefined()
-      expect(plugin.parsers).toBeDefined()
-      expect(plugin.parsers?.length).toBe(1)
-      expect(plugin.parsers?.[0]).toBeInstanceOf(LockfileParser)
-    })
-  })
-
-  describe('createPlugin', () => {
-    it('should create a plugin with custom configuration', () => {
-      const customPlugin = createPlugin({
-        dictionaryPath,
-      })
-
-      expect(customPlugin).toBeDefined()
-      expect(customPlugin.parsers).toBeDefined()
-      expect(customPlugin.parsers?.length).toBe(1)
-      expect(customPlugin.parsers?.[0]).toBeInstanceOf(LockfileParser)
-    })
   })
 
   describe('LockfileParser', () => {

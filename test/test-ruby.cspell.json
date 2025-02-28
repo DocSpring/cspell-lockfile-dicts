@@ -1,0 +1,12 @@
+{
+  "version": "0.2",
+  "language": "en",
+  "dictionaries": ["ruby-dict"],
+  "dictionaryDefinitions": [
+    {
+      "name": "ruby-dict",
+      "path": ".cspell/lockfile-words-ruby.txt"
+    }
+  ],
+  "ignorePaths": []
+}

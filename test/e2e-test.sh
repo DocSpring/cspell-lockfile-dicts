@@ -22,29 +22,88 @@ if [ -d ".cspell" ]; then
   rm -rf .cspell
 fi
 
-# Generate the dictionary from test lockfiles
-echo "Generating dictionary from test lockfiles..."
-node "$PROJECT_ROOT/dist/cli.js" --path .cspell/lockfile-words.txt --lockfiles package-lock.json,Gemfile.lock
+# Function to test dictionary generation and spell checking
+test_dictionary() {
+  local name=$1
+  local lockfiles=$2
+  local expected_words=$3
+  local dict_path=".cspell/lockfile-words-${name}.txt"
+  
+  echo "=== Testing ${name} ==="
+  
+  # Generate the dictionary
+  echo "Generating dictionary from ${lockfiles}..."
+  node "$PROJECT_ROOT/dist/cli.js" --path "${dict_path}" --lockfiles ${lockfiles}
+  
+  # Ensure the dictionary file exists
+  if [ ! -f "${dict_path}" ]; then
+    echo "Error: Dictionary file was not generated"
+    exit 1
+  fi
+  
+  # Check if expected words are in the dictionary
+  echo "Checking for expected words in the dictionary..."
+  for word in ${expected_words}; do
+    if ! grep -q "${word}" "${dict_path}"; then
+      echo "Error: Expected word '${word}' not found in dictionary"
+      exit 1
+    else
+      echo "✅ Found expected word: ${word}"
+    fi
+  done
+  
+  # Run cspell with dictionary disabled - should find all errors
+  echo "Running cspell with dictionary disabled..."
+  DISABLED_OUTPUT=$(npx cspell --config test-none.cspell.json test.txt --words-only || true)
+  DISABLED_ERRORS=$(echo "$DISABLED_OUTPUT" | wc -l)
+  
+  # Run cspell with this dictionary enabled
+  echo "Running cspell with ${name} dictionary enabled..."
+  ENABLED_OUTPUT=$(npx cspell --config "test-${name}.cspell.json" test.txt --words-only || true)
+  ENABLED_ERRORS=$(echo "$ENABLED_OUTPUT" | wc -l)
+  
+  # Verify that enabling the dictionary reduced the number of errors
+  echo "Errors with dictionary disabled: $DISABLED_ERRORS"
+  echo "Errors with ${name} dictionary enabled: $ENABLED_ERRORS"
+  
+  if [ "$ENABLED_ERRORS" -ge "$DISABLED_ERRORS" ]; then
+    echo "E2E test failed: CSpell did not reduce the number of spelling errors with ${name} dictionary"
+    exit 1
+  fi
+  
+  echo "✅ ${name} test passed"
+  echo ""
+}
 
-# Ensure the dictionary file exists
-if [ ! -f .cspell/lockfile-words.txt ]; then
-  echo "Error: Dictionary file was not generated"
-  exit 1
-fi
+# Test Gemfile.lock only
+test_dictionary "ruby" "Gemfile.lock" "gemfilespecc gemfilespecb gemfilespeca"
+
+# Test package-lock.json only
+test_dictionary "npm" "package-lock.json" "lodash react typescript"
+
+# Test both lockfiles together
+test_dictionary "combined" "package-lock.json Gemfile.lock" "gemfilespecc lodash react typescript"
+
+# Run the final test with both dictionaries
+echo "=== Final Test with Combined Dictionary ==="
+
+# Generate the combined dictionary
+echo "Generating combined dictionary..."
+node "$PROJECT_ROOT/dist/cli.js"
 
 # Run cspell with dictionary disabled - should find all errors
 echo "Running cspell with dictionary disabled..."
-DISABLED_OUTPUT=$(npx cspell --config test-disabled.cspell.json test.txt --words-only || true)
+DISABLED_OUTPUT=$(npx cspell --config test-none.cspell.json test.txt --words-only || true)
 DISABLED_ERRORS=$(echo "$DISABLED_OUTPUT" | wc -l)
 
 # Run cspell with dictionary enabled - should only find real spelling errors
-echo "Running cspell with dictionary enabled..."
-ENABLED_OUTPUT=$(npx cspell --config test-enabled.cspell.json test.txt --words-only || true)
+echo "Running cspell with combined dictionary enabled..."
+ENABLED_OUTPUT=$(npx cspell --config test-ext.cspell.json test.txt --words-only || true)
 ENABLED_ERRORS=$(echo "$ENABLED_OUTPUT" | wc -l)
 
 # Verify that enabling the dictionary reduced the number of errors
 echo "Errors with dictionary disabled: $DISABLED_ERRORS"
-echo "Errors with dictionary enabled: $ENABLED_ERRORS"
+echo "Errors with combined dictionary enabled: $ENABLED_ERRORS"
 
 # The enabled errors should be less than disabled errors
 if [ "$ENABLED_ERRORS" -ge "$DISABLED_ERRORS" ]; then
@@ -58,5 +117,25 @@ if [ "$ENABLED_ERRORS" -ne 3 ]; then
   exit 1
 fi
 
-echo "E2E test passed: CSpell correctly ignored package names while catching real spelling errors"
+# Check that the expected words are not flagged as errors
+for word in "gemfilespecc" "lodash" "react" "typescript"; do
+  if echo "$ENABLED_OUTPUT" | grep -q "$word"; then
+    echo "Error: Word '$word' should not be flagged as a spelling error"
+    exit 1
+  else
+    echo "✅ Word '$word' correctly ignored by the spell checker"
+  fi
+done
+
+# Check that the real spelling errors are still caught
+for word in "mispeling" "recieved" "teh"; do
+  if ! echo "$ENABLED_OUTPUT" | grep -q "$word"; then
+    echo "Error: Real spelling error '$word' was not caught"
+    exit 1
+  else
+    echo "✅ Real spelling error '$word' correctly caught"
+  fi
+done
+
+echo "✅ E2E test passed: CSpell correctly ignored package names while catching real spelling errors"
 exit 0

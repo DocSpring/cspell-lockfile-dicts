@@ -4,7 +4,7 @@
  */
 
 // Re-export the extractWordsFromFile function
-export { extractWordsFromFile } from './extractors/index.ts'
+export { extractWordsFromFile } from './extractors/index.js'
 
 // Re-export all individual extractors
 export {
@@ -18,4 +18,4 @@ export {
   extractFromGoMod,
   extractFromPoetryLock,
   extractFromPipfileLock,
-} from './extractors/index.ts'
+} from './extractors/index.js'

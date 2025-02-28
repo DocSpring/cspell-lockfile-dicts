@@ -1,7 +1,7 @@
 import * as fs from 'fs'
-import { LockfileDictionariesConfig, defaultConfig } from './config.ts'
-import { extractWordsFromFile } from './extractors.ts'
-import { detectLockfileType } from './lockfileTypes.ts'
+import { LockfileDictionariesConfig, defaultConfig } from './config.js'
+import { extractWordsFromFile } from './extractors.js'
+import { detectLockfileType } from './lockfileTypes.js'
 
 /**
  * Debug logger that only logs when debug is enabled
@@ -124,7 +124,7 @@ export async function generateDictionary(
 
   // Save the dictionary with source comments
   if (result.length > 0) {
-    saveDictionary(result, wordsBySource, mergedConfig)
+    saveDictionary(wordsBySource, mergedConfig)
   }
 
   return result
@@ -132,12 +132,10 @@ export async function generateDictionary(
 
 /**
  * Save a dictionary to a file
- * @param words Words to save
  * @param wordsBySource Words grouped by source file
  * @param config Configuration options
  */
 export function saveDictionary(
-  words: string[],
   wordsBySource: Record<string, string[]>,
   config: LockfileDictionariesConfig = {}
 ): string {
@@ -153,11 +151,7 @@ export function saveDictionary(
   }
 
   // Create the dictionary content with comments
-  let content = '# CSpell Lockfile Words\n'
-
-  // Add all words sorted alphabetically
-  content += '# All words (sorted alphabetically)\n'
-  content += words.join('\n') + '\n\n'
+  let content = '# CSpell Lockfile Words\n\n'
 
   // Add words by source
   for (const [source, sourceWords] of Object.entries(wordsBySource)) {

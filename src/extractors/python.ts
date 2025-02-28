@@ -1,5 +1,5 @@
-import { LockfileDictionariesConfig } from '../config.ts'
-import { debugLog } from '../utils.ts'
+import { LockfileDictionariesConfig } from '../config.js'
+import { debugLog } from '../utils.js'
 
 /**
  * Extract words from a Python lock file (poetry.lock or Pipfile.lock)
@@ -43,5 +43,5 @@ export function extractFromPythonLock(
 /**
  * Import the specific extractors to avoid circular dependencies
  */
-import { extractFromPoetryLock } from './poetry.ts'
-import { extractFromPipfileLock } from './pipenv.ts'
+import { extractFromPoetryLock } from './poetry.js'
+import { extractFromPipfileLock } from './pipenv.js'

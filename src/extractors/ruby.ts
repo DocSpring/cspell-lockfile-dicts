@@ -38,14 +38,5 @@ export function extractFromGemfileLock(content: string): string[] {
     words.add(match[1])
   }
 
-  // Extract version numbers (without dots)
-  const versionRegex = /\(([0-9]+\.[0-9]+\.[0-9]+)\)/g
-  while ((match = versionRegex.exec(content)) !== null) {
-    const version = match[1].replace(/\./g, '')
-    if (version.length > 2) {
-      words.add(version)
-    }
-  }
-
   return Array.from(words).sort()
 }
