@@ -23,8 +23,8 @@
     "lint:fix": "eslint . --ext .ts --fix",
     "format": "prettier --write \"**/*.{ts,js,json,md}\"",
     "format:check": "prettier --check \"**/*.{ts,js,json,md}\"",
-    "spell": "cspell --config .cspell.json \"**/*.{ts,js,json,md}\"",
-    "spell:fix": "cspell --config .cspell.json --fix \"**/*.{ts,js,json,md}\"",
+    "cspell": "cspell --config .cspell.json .",
+    "cspell:fix": "cspell --config .cspell.json --fix .",
     "generate-dict": "npm run build && node dist/cli.js"
   },
   "keywords": [

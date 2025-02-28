@@ -1,4 +1,5 @@
 #!/bin/bash
+# cspell:ignore gemfilespecc gemfilespecb gemfilespeca mispeling recieved ohokthen
 set -e
 
 echo "Running E2E integration test for cspell-lockfile-dictionaries plugin"

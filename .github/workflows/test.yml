@@ -28,8 +28,8 @@ jobs:
       - name: Check Prettier formatting
         run: npm run format:check
 
-      - name: Run spell check
-        run: npm run spell
+      - name: Run CSpell check
+        run: npm run cspell
 
       - name: Build
         run: npm run build
