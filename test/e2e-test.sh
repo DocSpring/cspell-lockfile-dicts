@@ -91,10 +91,10 @@ test_dictionary() {
 test_dictionary "ruby" "Gemfile.lock" "gemfilespecc gemfilespecb gemfilespeca"
 
 # Test package-lock.json only
-test_dictionary "npm" "package-lock.json" "lodash react typescript"
+test_dictionary "npm" "package-lock.json" "dict-monkeyc is-arrayish iojs"
 
 # Test both lockfiles together
-test_dictionary "combined" "package-lock.json Gemfile.lock" "gemfilespecc lodash react typescript"
+test_dictionary "combined" "package-lock.json Gemfile.lock" "gemfilespecc dict-monkeyc is-arrayish iojs"
 
 echo "=== Final Test With Auto-Detected Lockfiles ==="
 
@@ -129,7 +129,7 @@ if [ "$ENABLED_ERRORS" -ne 3 ]; then
 fi
 
 # Check that the expected words are not flagged as errors
-for word in "gemfilespecc" "lodash" "react" "typescript"; do
+for word in "gemfilespecc" "dict-monkeyc" "is-arrayish" "iojs"; do
   if echo "$ENABLED_OUTPUT" | grep -q "$word"; then
     echo "Error: Word '$word' should not be flagged as a spelling error"
     exit 1
