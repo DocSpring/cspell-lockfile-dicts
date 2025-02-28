@@ -17,8 +17,6 @@ Gemfile.lock:
 gemfilespeca
 gemfilespecb
 gemfilespecc
-gemfilebranch
-gemfilerevision
 gemfilespecgit
 
 These are package names and developer usernames that would be caught by cspell

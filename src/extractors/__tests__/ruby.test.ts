@@ -33,8 +33,8 @@ describe('Ruby Extractors', () => {
       // Git metadata
       expect(words).toContain('awesomeuser')
       expect(words).toContain('awesomerepo')
-      expect(words).toContain('awesomebranch')
-      expect(words).toContain('awesomerevision')
+      expect(words).not.toContain('awesomebranch')
+      expect(words).not.toContain('awesomerevision')
 
       verifyWords(words)
     })

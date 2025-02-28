@@ -26,17 +26,5 @@ export function extractFromGemfileLock(content: string): string[] {
     words.add(match[2])
   }
 
-  // Extract branch names
-  const branchRegex = /^\s{2}branch: ([a-zA-Z0-9_-]+)/gm
-  while ((match = branchRegex.exec(content)) !== null) {
-    words.add(match[1])
-  }
-
-  // Extract revision values
-  const revisionRegex = /^\s{2}revision: ([a-zA-Z0-9_-]+)/gm
-  while ((match = revisionRegex.exec(content)) !== null) {
-    words.add(match[1])
-  }
-
   return Array.from(words).sort()
 }
