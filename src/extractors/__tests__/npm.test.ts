@@ -1,5 +1,5 @@
 import { extractFromPackageLock } from '../npm'
-import { loadFixture, setupMocks, verifyNoDuplicates } from './test-helpers'
+import { loadFixture, setupMocks, verifyWords } from './test-helpers'
 
 describe('NPM Extractors', () => {
   beforeEach(() => {
@@ -26,7 +26,7 @@ describe('NPM Extractors', () => {
       expect(words).not.toContain('dict')
       expect(words).not.toContain('monkeyc')
 
-      verifyNoDuplicates(words)
+      verifyWords(words)
     })
 
     it('should extract package names from package-lock.json (lockfileVersion 3)', () => {
@@ -56,7 +56,7 @@ describe('NPM Extractors', () => {
       expect(words).toContain('license')
       expect(words).toContain('MIT')
 
-      verifyNoDuplicates(words)
+      verifyWords(words)
     })
 
     it('should properly handle scoped packages like @babel/compat-data', () => {
@@ -87,7 +87,7 @@ describe('NPM Extractors', () => {
       expect(words).not.toContain('compat')
       expect(words).not.toContain('data')
 
-      verifyNoDuplicates(words)
+      verifyWords(words)
     })
   })
 })

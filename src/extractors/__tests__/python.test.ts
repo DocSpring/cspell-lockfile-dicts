@@ -1,7 +1,7 @@
 import { extractFromPythonLock } from '../python'
 import { extractFromPoetryLock } from '../poetry'
 import { extractFromPipfileLock } from '../pipenv'
-import { loadFixture, setupMocks, verifyNoDuplicates } from './test-helpers'
+import { loadFixture, setupMocks, verifyWords } from './test-helpers'
 
 describe('Python Extractors', () => {
   beforeEach(() => {
@@ -16,7 +16,7 @@ describe('Python Extractors', () => {
       expect(words).toContain('package-a')
       expect(words).toContain('package-b')
 
-      verifyNoDuplicates(words)
+      verifyWords(words)
     })
   })
 
@@ -28,7 +28,7 @@ describe('Python Extractors', () => {
       expect(words).toContain('package-a')
       expect(words).toContain('package-b')
 
-      verifyNoDuplicates(words)
+      verifyWords(words)
     })
   })
 

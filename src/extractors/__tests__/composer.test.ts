@@ -1,5 +1,5 @@
 import { extractFromComposerLock } from '../composer'
-import { loadFixture, setupMocks, verifyNoDuplicates } from './test-helpers'
+import { loadFixture, setupMocks, verifyWords } from './test-helpers'
 
 describe('Composer Extractors', () => {
   beforeEach(() => {
@@ -17,7 +17,7 @@ describe('Composer Extractors', () => {
       expect(words).toContain('vendor/package-a')
       expect(words).toContain('vendor/package-b')
 
-      verifyNoDuplicates(words)
+      verifyWords(words)
     })
   })
 })

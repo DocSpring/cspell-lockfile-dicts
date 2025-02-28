@@ -1,5 +1,5 @@
 import { extractFromGemfileLock } from '../ruby'
-import { loadFixture, setupMocks, verifyNoDuplicates } from './test-helpers'
+import { loadFixture, setupMocks, verifyWords } from './test-helpers'
 
 describe('Ruby Extractors', () => {
   beforeEach(() => {
@@ -36,7 +36,7 @@ describe('Ruby Extractors', () => {
       expect(words).toContain('awesomebranch')
       expect(words).toContain('awesomerevision')
 
-      verifyNoDuplicates(words)
+      verifyWords(words)
     })
   })
 })

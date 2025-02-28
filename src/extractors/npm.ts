@@ -249,13 +249,6 @@ export function extractFromPackageLock(
 
           // Extract version without dots
           const dep = deps[packageName] as Record<string, unknown>
-          const version = dep.version as string | undefined
-          if (version) {
-            const versionWithoutDots = version.replace(/\./g, '')
-            if (versionWithoutDots.length > 2) {
-              words.add(versionWithoutDots)
-            }
-          }
 
           // Recursively extract words from the dependency object
           extractWordsFromObject(dep)

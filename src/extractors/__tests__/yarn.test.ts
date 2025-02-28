@@ -1,5 +1,5 @@
 import { extractFromYarnLock } from '../yarn'
-import { loadFixture, setupMocks, verifyNoDuplicates } from './test-helpers'
+import { loadFixture, setupMocks, verifyWords } from './test-helpers'
 
 describe('Yarn Extractors', () => {
   beforeEach(() => {
@@ -21,7 +21,7 @@ describe('Yarn Extractors', () => {
       // Full scoped package names should not be included
       expect(words).not.toContain('@cspell/dict-monkeyc')
 
-      verifyNoDuplicates(words)
+      verifyWords(words)
     })
   })
 })

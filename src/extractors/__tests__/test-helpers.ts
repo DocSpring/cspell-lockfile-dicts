@@ -35,9 +35,31 @@ export const setupMocks = (): void => {
 }
 
 /**
- * Verify that there are no duplicate words in the array
+ * Verify that the words array meets our requirements:
+ * 1. No duplicate words
+ * 2. No strings of numbers (version strings)
  * @param words Array of words to check
  */
-export const verifyNoDuplicates = (words: string[]): void => {
-  expect(words.length).toBe(new Set(words).size)
+export const verifyWords = (words: string[]): void => {
+  // Check for duplicates
+  const uniqueWords = new Set(words)
+  expect(words.length).toBe(uniqueWords.size)
+
+  // Check for strings of numbers
+  const numericRegex = /^\d+$/
+  const numericWords = words.filter((word) => numericRegex.test(word))
+  if (numericWords.length > 0) {
+    throw new Error(
+      `Found numeric strings in words: ${numericWords.join(', ')}`
+    )
+  }
+
+  // Check for version-like strings
+  const versionRegex = /^\d+\.\d+(\.\d+)*$/
+  const versionWords = words.filter((word) => versionRegex.test(word))
+  if (versionWords.length > 0) {
+    throw new Error(
+      `Found version strings in words: ${versionWords.join(', ')}`
+    )
+  }
 }

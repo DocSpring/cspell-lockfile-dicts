@@ -1,5 +1,5 @@
 import { extractFromCargoLock } from '../cargo'
-import { loadFixture, setupMocks, verifyNoDuplicates } from './test-helpers'
+import { loadFixture, setupMocks, verifyWords } from './test-helpers'
 
 describe('Cargo Extractors', () => {
   beforeEach(() => {
@@ -14,7 +14,7 @@ describe('Cargo Extractors', () => {
       expect(words).toContain('package-a')
       expect(words).toContain('package-b')
 
-      verifyNoDuplicates(words)
+      verifyWords(words)
     })
   })
 })

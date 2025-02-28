@@ -37,15 +37,6 @@ export function extractFromPoetryLock(content: string): string[] {
     })
   }
 
-  // Extract version numbers (without dots)
-  const versionRegex = /version = "([0-9]+\.[0-9]+\.[0-9]+)"/g
-  while ((match = versionRegex.exec(content)) !== null) {
-    const version = match[1].replace(/\./g, '')
-    if (version.length > 2) {
-      words.add(version)
-    }
-  }
-
   // Extract category names
   const categoryRegex = /category = "([^"]+)"/g
   while ((match = categoryRegex.exec(content)) !== null) {

@@ -1,5 +1,5 @@
 import { extractFromGoMod, extractFromGoSum } from '../go'
-import { loadFixture, setupMocks, verifyNoDuplicates } from './test-helpers'
+import { loadFixture, setupMocks, verifyWords } from './test-helpers'
 
 describe('Go Extractors', () => {
   beforeEach(() => {
@@ -20,7 +20,7 @@ describe('Go Extractors', () => {
       expect(words).toContain('golang.org/x/text')
       expect(words).toContain('golang.org/x/sync')
 
-      verifyNoDuplicates(words)
+      verifyWords(words)
     })
   })
 
@@ -36,7 +36,7 @@ describe('Go Extractors', () => {
       expect(words).toContain('github.com/another/module')
       expect(words).toContain('golang.org/x/text')
 
-      verifyNoDuplicates(words)
+      verifyWords(words)
     })
   })
 })
