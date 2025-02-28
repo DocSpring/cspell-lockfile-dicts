@@ -1,5 +1,7 @@
 # cspell-lockfile-dicts
 
+[![Test, Lint, and Spell Check](https://github.com/DocSpring/cspell-lockfile-dicts/actions/workflows/test.yml/badge.svg)](https://github.com/DocSpring/cspell-lockfile-dicts/actions/workflows/test.yml)
+
 A tool that extracts package names from various lockfiles and adds them to a CSpell dictionary file.
 
 ## Requirements
@@ -11,29 +13,8 @@ A tool that extracts package names from various lockfiles and adds them to a CSp
 
 ## Installation
 
-Global Install and add to cspell global settings.
-
 ```sh
 npm install -g cspell-lockfile-dicts
-cspell link add cspell-lockfile-dicts
-```
-
-## Uninstall from cspell
-
-```sh
-cspell link remove cspell-lockfile-dicts
-```
-
-## Manual Installation
-
-The `cspell-ext.json` file in this package should be added to the import section in your cspell.json file.
-
-```javascript
-{
-  // …
-  "import": ["cspell-lockfile-dicts/cspell-ext.json"],
-  // …
-}
 ```
 
 ## Usage
@@ -54,11 +35,18 @@ This will:
 
 ### Step 2: Add the Dictionary to CSpell
 
-After installing the package, add the dictionary to your CSpell configuration (e.g., `.cspell.json` or `cspell.json`):
+After generating the dictionary, add it to your CSpell configuration (e.g., `.cspell.json` or `cspell.json`):
 
 ```json
 {
-  "dictionaries": ["lockfile-dicts"]
+  "dictionaryDefinitions": [
+    {
+      "name": "lockfile-words",
+      "path": "./.cspell/lockfile-words.txt",
+      "description": "Dictionary of words extracted from lockfiles"
+    }
+  ],
+  "dictionaries": ["lockfile-words"]
 }
 ```
 
@@ -134,11 +122,34 @@ jobs:
           node-version: '16'
       - run: npm install -g cspell-lockfile-dicts
       - run: cspell-lockfile-dicts
+      - name: Update CSpell config
+        run: |
+          if [ ! -f .cspell.json ]; then
+            echo '{
+              "version": "0.2",
+              "language": "en",
+              "dictionaryDefinitions": [
+                {
+                  "name": "lockfile-words",
+                  "path": "./.cspell/lockfile-words.txt",
+                  "description": "Dictionary of words extracted from lockfiles"
+                }
+              ],
+              "dictionaries": ["lockfile-words"]
+            }' > .cspell.json
+          else
+            # Check if the dictionary is already configured
+            if ! grep -q "lockfile-words" .cspell.json; then
+              # This is a simple approach - for production use, consider using a JSON parser
+              sed -i 's/"dictionaries": \[/"dictionaries": \["lockfile-words", /g' .cspell.json
+              sed -i 's/"dictionaryDefinitions": \[/"dictionaryDefinitions": \[{"name": "lockfile-words", "path": "./.cspell\/lockfile-words.txt", "description": "Dictionary of words extracted from lockfiles"}, /g' .cspell.json
+            fi
+          fi
       - name: Commit changes
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
           commit_message: 'chore: update cspell lockfile dictionary'
-          file_pattern: .cspell/lockfile-words.txt
+          file_pattern: '.cspell/lockfile-words.txt .cspell.json'
 ```
 
 ## License

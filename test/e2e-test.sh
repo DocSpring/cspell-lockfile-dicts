@@ -7,6 +7,15 @@ echo "Running E2E integration test for cspell-lockfile-dictionaries plugin"
 PROJECT_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 echo "Project root: $PROJECT_ROOT"
 
+# Disable project .cspell.json
+mv "$PROJECT_ROOT/.cspell.json" "$PROJECT_ROOT/.cspell.json.disabled" || true
+
+# Enable on exit
+TRAP_SCRIPT="mv $PROJECT_ROOT/.cspell.json.disabled $PROJECT_ROOT/.cspell.json"
+trap '$TRAP_SCRIPT' EXIT
+
+CSPELL_BIN="$PROJECT_ROOT/node_modules/.bin/cspell"
+
 # First, build the project
 echo "Building project..."
 cd "$PROJECT_ROOT"
@@ -21,6 +30,9 @@ echo "Cleaning up any existing .cspell directory..."
 if [ -d ".cspell" ]; then
   rm -rf .cspell
 fi
+
+mkdir -p .cspell
+touch .cspell/empty.txt
 
 # Function to test dictionary generation and spell checking
 test_dictionary() {
@@ -54,12 +66,12 @@ test_dictionary() {
   
   # Run cspell with dictionary disabled - should find all errors
   echo "Running cspell with dictionary disabled..."
-  DISABLED_OUTPUT=$(npx cspell --config test-none.cspell.json test.txt --words-only || true)
+  DISABLED_OUTPUT=$($CSPELL_BIN --config test-none.cspell.json test.txt --words-only || true)
   DISABLED_ERRORS=$(echo "$DISABLED_OUTPUT" | wc -l)
   
   # Run cspell with this dictionary enabled
   echo "Running cspell with ${name} dictionary enabled..."
-  ENABLED_OUTPUT=$(npx cspell --config "test-${name}.cspell.json" test.txt --words-only || true)
+  ENABLED_OUTPUT=$($CSPELL_BIN --config "test-${name}.cspell.json" test.txt --words-only || true)
   ENABLED_ERRORS=$(echo "$ENABLED_OUTPUT" | wc -l)
   
   # Verify that enabling the dictionary reduced the number of errors
@@ -84,8 +96,7 @@ test_dictionary "npm" "package-lock.json" "lodash react typescript"
 # Test both lockfiles together
 test_dictionary "combined" "package-lock.json Gemfile.lock" "gemfilespecc lodash react typescript"
 
-# Run the final test with both dictionaries
-echo "=== Final Test with Combined Dictionary ==="
+echo "=== Final Test With Auto-Detected Lockfiles ==="
 
 # Generate the combined dictionary
 echo "Generating combined dictionary..."
@@ -93,17 +104,17 @@ node "$PROJECT_ROOT/dist/cli.js"
 
 # Run cspell with dictionary disabled - should find all errors
 echo "Running cspell with dictionary disabled..."
-DISABLED_OUTPUT=$(npx cspell --config test-none.cspell.json test.txt --words-only || true)
+DISABLED_OUTPUT=$($CSPELL_BIN --config test-none.cspell.json test.txt --words-only || true)
 DISABLED_ERRORS=$(echo "$DISABLED_OUTPUT" | wc -l)
 
 # Run cspell with dictionary enabled - should only find real spelling errors
-echo "Running cspell with combined dictionary enabled..."
-ENABLED_OUTPUT=$(npx cspell --config test-ext.cspell.json test.txt --words-only || true)
+echo "Running cspell with auto-detection dictionary enabled..."
+ENABLED_OUTPUT=$($CSPELL_BIN --config test-auto.cspell.json test.txt --words-only || true)
 ENABLED_ERRORS=$(echo "$ENABLED_OUTPUT" | wc -l)
 
 # Verify that enabling the dictionary reduced the number of errors
 echo "Errors with dictionary disabled: $DISABLED_ERRORS"
-echo "Errors with combined dictionary enabled: $ENABLED_ERRORS"
+echo "Errors with auto-detection dictionary enabled: $ENABLED_ERRORS"
 
 # The enabled errors should be less than disabled errors
 if [ "$ENABLED_ERRORS" -ge "$DISABLED_ERRORS" ]; then
@@ -128,7 +139,7 @@ for word in "gemfilespecc" "lodash" "react" "typescript"; do
 done
 
 # Check that the real spelling errors are still caught
-for word in "mispeling" "recieved" "teh"; do
+for word in "mispeling" "recieved" "ohokthen"; do
   if ! echo "$ENABLED_OUTPUT" | grep -q "$word"; then
     echo "Error: Real spelling error '$word' was not caught"
     exit 1

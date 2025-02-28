@@ -1,7 +1,8 @@
 {
-  "id": "lockfile-words",
-  "name": "Lockfile Words",
-  "description": "Dictionary of words extracted from lockfiles",
+  "version": "0.2",
+  "language": "en",
+  "useGitignore": false,
+  "ignorePaths": [],
   "dictionaryDefinitions": [
     {
       "name": "lockfile-words",

@@ -3,13 +3,29 @@
   "language": "en",
   "useGitignore": true,
   "ignorePaths": ["node_modules", "dist", "coverage"],
-  "dictionaries": ["typescript", "node", "npm", "custom-words"],
+  "dictionaries": [
+    "typescript",
+    "node",
+    "npm",
+    "project-words",
+    "test-words",
+    "lockfile-words"
+  ],
   "dictionaryDefinitions": [
     {
-      "name": "custom-words",
-      "path": "./.cspell/custom-words.txt",
+      "name": "project-words",
+      "path": "./.cspell/project-words.txt",
       "addWords": true
+    },
+    {
+      "name": "test-words",
+      "path": "./.cspell/test-words.txt",
+      "addWords": true
+    },
+    {
+      "name": "lockfile-words",
+      "path": "./.cspell/lockfile-words.txt",
+      "description": "Dictionary of words extracted from lockfiles"
     }
-  ],
-  "import": ["./cspell-ext.json"]
+  ]
 }

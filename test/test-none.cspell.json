@@ -1,8 +1,12 @@
 {
   "version": "0.2",
   "language": "en",
-  "useGitignore": false,
-  "allowCompoundWords": true,
-  "ignorePaths": [],
-  "dictionaries": []
+  "dictionaries": ["empty-dict"],
+  "dictionaryDefinitions": [
+    {
+      "name": "empty-dict",
+      "path": ".cspell/empty.txt"
+    }
+  ],
+  "ignorePaths": []
 }
