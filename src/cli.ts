@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 
 import { Command } from 'commander'
-import { generateDictionary } from './utils.js'
-import { LockfileDictionariesConfig } from './config.js'
+import { generateDictionary } from './utils.ts'
+import { LockfileDictionariesConfig } from './config.ts'
 
 const program = new Command()
 

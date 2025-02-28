@@ -1,19 +1,18 @@
 import * as fs from 'fs'
-import { LockfileType } from '../lockfileTypes.js'
-import { LockfileDictionariesConfig } from '../config.js'
-import { debugLog } from '../utils.js'
+import { LockfileType } from '../lockfileTypes.ts'
+import { LockfileDictionariesConfig } from '../config.ts'
+import { debugLog } from '../utils.ts'
 
 // Import all extractors
-import { extractFromPackageLock } from './npm.js'
-import { extractFromYarnLock } from './yarn.js'
-import { extractFromGemfileLock } from './ruby.js'
-import { extractFromComposerLock } from './composer.js'
-import { extractFromCargoLock } from './cargo.js'
-import { extractFromPythonLock } from './python.js'
-import { extractFromGoSum, extractFromGoMod } from './go.js'
-import { extractFromPoetryLock } from './poetry.js'
-import { extractFromPipfileLock } from './pipenv.js'
-import { extractGeneric } from './generic.js'
+import { extractFromPackageLock } from './npm.ts'
+import { extractFromYarnLock } from './yarn.ts'
+import { extractFromGemfileLock } from './ruby.ts'
+import { extractFromComposerLock } from './composer.ts'
+import { extractFromCargoLock } from './cargo.ts'
+import { extractFromPythonLock } from './python.ts'
+import { extractFromGoSum, extractFromGoMod } from './go.ts'
+import { extractFromPoetryLock } from './poetry.ts'
+import { extractFromPipfileLock } from './pipenv.ts'
 
 /**
  * Extract words from a file based on its type
@@ -72,8 +71,8 @@ export async function extractWordsFromFile(
       result = extractFromGoMod(fileContent)
       break
     default:
-      debugLog(config, `🔍 Using generic extractor`)
-      result = extractGeneric(fileContent)
+      debugLog(config, `⚠️ No extractor found for file type ${fileType}`)
+      result = []
       break
   }
 
@@ -93,5 +92,4 @@ export {
   extractFromGoMod,
   extractFromPoetryLock,
   extractFromPipfileLock,
-  extractGeneric,
 }

@@ -142,20 +142,5 @@ describe('Integration Tests', () => {
       expect(words).toContain('github.com/another/module')
       expect(words).toContain('golang.org/x/text')
     })
-
-    it('should use generic extractor for unknown file types', async () => {
-      const mockContent = 'This is a generic file with package-a and package-b'
-      mockedReadFileSync.mockReturnValue(mockContent)
-
-      // Use PACKAGE_LOCK as a fallback, but the content doesn't match so it will use generic extractor
-      const words = await extractWordsFromFile(
-        'unknown.txt',
-        LockfileType.PACKAGE_LOCK,
-        false
-      )
-
-      expect(words).toContain('generic')
-      expect(words).toContain('package')
-    })
   })
 })

@@ -1,5 +1,5 @@
-import { LockfileDictionariesConfig } from '../config.js'
-import { debugLog } from '../utils.js'
+import { LockfileDictionariesConfig } from '../config.ts'
+import { debugLog } from '../utils.ts'
 
 /**
  * Extract words from a Pipfile.lock file

@@ -1,7 +1,7 @@
 import type { Plugin } from '@cspell/cspell-types'
-import { LockfileDictionariesConfig, defaultConfig } from './config.js'
-import { LockfileParser } from './parser.js'
-import { debugLog } from './utils.js'
+import { LockfileDictionariesConfig, defaultConfig } from './config.ts'
+import { LockfileParser } from './parser.ts'
+import { debugLog } from './utils.ts'
 
 /**
  * Create a plugin instance with the given configuration

@@ -1,7 +1,7 @@
 import * as fs from 'fs'
-import { LockfileDictionariesConfig, defaultConfig } from './config.js'
-import { extractWordsFromFile } from './extractors.js'
-import { detectLockfileType } from './lockfileTypes.js'
+import { LockfileDictionariesConfig, defaultConfig } from './config.ts'
+import { extractWordsFromFile } from './extractors.ts'
+import { detectLockfileType } from './lockfileTypes.ts'
 
 /**
  * Debug logger that only logs when debug is enabled

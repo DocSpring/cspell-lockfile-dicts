@@ -1,4 +1,4 @@
-import js from '@eslint/js'
+import js from '@eslint.ts'
 import tseslint from 'typescript-eslint'
 import prettierConfig from 'eslint-config-prettier'
 
