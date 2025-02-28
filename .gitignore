@@ -53,8 +53,5 @@ lerna-debug.log*
 # Yarn Integrity file
 .yarn-integrity
 
-# Generated files
-.cspell/lockfile-words.txt
-
 # cspell directory
 cspell/ 
