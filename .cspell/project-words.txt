@@ -6,6 +6,7 @@ COCOAPODS
 codecov
 cspell
 dictionaries
+docspring
 eslintcache
 eslintrc
 gemfile

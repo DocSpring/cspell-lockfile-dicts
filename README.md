@@ -1,4 +1,4 @@
-# cspell-lockfile-dicts
+# @docspring/cspell-lockfile-dicts
 
 [![Test, Lint, and Spell Check](https://github.com/DocSpring/cspell-lockfile-dicts/actions/workflows/test.yml/badge.svg)](https://github.com/DocSpring/cspell-lockfile-dicts/actions/workflows/test.yml)
 
@@ -14,7 +14,7 @@ A tool that extracts package names from various lockfiles and adds them to a CSp
 ## Installation
 
 ```sh
-npm install -g cspell-lockfile-dicts
+npm install -g @docspring/cspell-lockfile-dicts
 ```
 
 ## Usage
@@ -24,7 +24,7 @@ npm install -g cspell-lockfile-dicts
 Run the CLI tool to generate a dictionary from your lockfiles:
 
 ```bash
-npx cspell-lockfile-dicts
+npx @docspring/cspell-lockfile-dicts
 ```
 
 This will:
@@ -73,19 +73,19 @@ Options:
 Generate dictionary with debug logging:
 
 ```bash
-npx cspell-lockfile-dicts --debug
+npx @docspring/cspell-lockfile-dicts --debug
 ```
 
 Specify custom output path:
 
 ```bash
-npx cspell-lockfile-dicts --path ./custom-dict.txt
+npx @docspring/cspell-lockfile-dicts --path ./custom-dict.txt
 ```
 
 Process specific lockfiles:
 
 ```bash
-npx cspell-lockfile-dicts --lockfiles package-lock.json yarn.lock
+npx @docspring/cspell-lockfile-dicts --lockfiles package-lock.json yarn.lock
 ```
 
 ## Supported Lockfiles
@@ -139,7 +139,7 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: '16'
-      - run: npm install -g cspell-lockfile-dicts
+      - run: npm install -g @docspring/cspell-lockfile-dicts
       - run: cspell-lockfile-dicts
       - name: Update CSpell config
         run: |
