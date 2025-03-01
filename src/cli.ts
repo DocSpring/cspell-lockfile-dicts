@@ -60,7 +60,6 @@ program.action(async (options) => {
       console.log('')
       console.log('1. Add the following to your cspell.json file:')
       console.log('')
-      console.log('```json')
       console.log('{')
       console.log('  "dictionaryDefinitions": [')
       console.log('    {')
@@ -73,7 +72,6 @@ program.action(async (options) => {
       console.log('  ],')
       console.log('  "dictionaries": ["lockfile-words"]')
       console.log('}')
-      console.log('```')
     } else {
       console.log('❌ No words were found in lockfiles')
     }
