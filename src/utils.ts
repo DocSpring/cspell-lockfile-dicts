@@ -53,7 +53,25 @@ export async function generateDictionary(
       '📋 Using explicitly specified lockfiles:',
       mergedConfig.lockfiles
     )
-    lockfilePaths.push(...mergedConfig.lockfiles)
+
+    // Check that all specified lockfiles exist
+    const missingFiles: string[] = []
+    for (const lockfile of mergedConfig.lockfiles) {
+      if (fs.existsSync(lockfile)) {
+        lockfilePaths.push(lockfile)
+        debugLog(mergedConfig, `✅ Found specified lockfile: ${lockfile}`)
+      } else {
+        missingFiles.push(lockfile)
+        debugLog(mergedConfig, `❌ Specified lockfile not found: ${lockfile}`)
+      }
+    }
+
+    // Throw error if any specified lockfiles were not found
+    if (missingFiles.length > 0) {
+      throw new Error(
+        `Specified lockfile(s) not found: ${missingFiles.join(', ')}`
+      )
+    }
   }
 
   // Auto-detect lockfiles if enabled
