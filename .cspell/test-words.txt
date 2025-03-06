@@ -5,3 +5,4 @@ awesomerepo
 awesomerevision
 awesomeuser
 monkeyc
+shiki
