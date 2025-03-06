@@ -1,6 +1,6 @@
 {
   "name": "@docspring/cspell-lockfile-dicts",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "CSpell plugin to extract words from lockfiles and create dictionaries",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
