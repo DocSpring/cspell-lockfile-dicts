@@ -8,17 +8,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [1.1.2] - 2025-03-06
 
 ### Fixed
+
 - Fixed an issue where specifying multiple lockfiles with `--lockfiles` option would only process the first lockfile
 - Added proper error handling when specified lockfiles don't exist
 - CLI now reads version from package.json instead of hardcoding it
 
 ### Added
+
 - Added unit tests for multiple lockfile functionality
 - Added this CHANGELOG file
 
 ## [1.0.0] - 2025-02-06
 
 ### Added
+
 - Initial release
 - Support for extracting words from various lockfiles:
   - package-lock.json (npm)
